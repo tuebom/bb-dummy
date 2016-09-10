@@ -1,0 +1,128 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<style>
+	.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+    border: none;
+	}
+	</style>
+	
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+  
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+
+ <script type="text/javascript">
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+	
+	console.log("Device Ready");
+
+	var push = PushNotification.init({
+		"android": {
+			"senderID": "597497239727"
+		},
+		"ios": {
+			"sound": true,
+			"vibration": true,
+			"badge": true
+		},
+		"windows": {}
+	});
+	console.log('after init');
+
+	push.on('registration', function(data) {
+		console.log('registration event: ' + data.registrationId);
+		document.getElementById("gcmid").value = data.registrationId;
+		
+		var oldRegId = localStorage.getItem('registrationId');
+		if (oldRegId !== data.registrationId) {
+			// Save new registration ID
+			localStorage.setItem('registrationId', data.registrationId);
+			// Post registrationId to your app server as the value has changed
+		}
+	});
+
+	push.on('error', function(e) {
+		console.log("push error = " + e.message);
+	});
+
+	push.on('notification', function(data) {
+		console.log('notification event');
+		navigator.notification.alert(
+			data.message,         // message
+			null,                 // callback
+			data.title,           // title
+			'Ok'                  // buttonName
+		);
+   });
+}
+ </script>
+
+	</head>
+	<body background="assets/img/biru.jpg">
+    <div class="section">
+      <div class="row text-center">
+        <h3 style="color:#ffffff">BALI BERBAGI</h3>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <table class="table table-borderless" border="0">
+              <tbody>
+                <tr>
+                  <td width="50%" halign="center">
+                    <a href="pages/daftar.html#"><img src="assets/img/daftar.jpg" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="pages/belanja.html#"><img src="assets/img/belanja.jpg" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="pages/pulsa.html#"><img src="assets/img/pulsa.jpg" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="pages/pln.html#"><img src="assets/img/pln.jpg" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="pages/data.html#"><img src="assets/img/data.jpg" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="pages/game.html#"><img src="assets/img/game.jpg" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="pages/tool.html"><img src="assets/img/tool.jpg" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="pages/komplain.html#"><img src="assets/img/komplain.jpg" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+			<textarea id="gcm_id" rows="10"></textarea></div>			
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body></html>
