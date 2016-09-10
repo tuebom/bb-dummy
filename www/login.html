@@ -15,7 +15,7 @@
     * Create your own at http://cspisawesome.com
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
- <link rel="stylesheet" type="text/css" href="css/ionic.css">
+ <link rel="stylesheet" type="text/css" href="assets/css/ionic.css">
   
  <script type="text/javascript" src="assets/js/jquery.min.js"></script>
  <script type="text/javascript" src="cordova.js"></script>
@@ -78,14 +78,19 @@ $(document).ready(function()
 	 }
 	 
 	 $("#login").click(function(){
+		 var gcmid=$("#gcmid").val();
 		 var userid=$("#userid").val();
 		 var password=$("#password").val();
 		 
-		 var dataString="userid="+userid+"&password="+password;
+		 var dataString="gcmid="+gcmid+"&userid="+userid+"&password="+password;
 		 
 		 if($.trim(userid).length>0 & $.trim(password).length>0)
 		 {
-			 $.ajax({
+			 alert("GCM ID: " +gcmid);
+			 alert("Host: " +host);
+			 window.location.href = "index.html";
+			 
+			 /*$.ajax({
 			 type: "POST",
 			 url:"http://" + host + "/berbagi/login",
 			 data: dataString,
@@ -100,12 +105,8 @@ $(document).ready(function()
 				 localStorage.setItem('mbrid') = userid;
 				 window.location.href = "index.html";
 			 }
-			 /*else if(data=="error")
-			 {
-				 alert("Transaksi gagal!");
-			 }*/
 			 }
-			 });
+			 });*/
 		 }return false;
 	 });
  });
@@ -117,7 +118,7 @@ $(document).ready(function()
  <a class="button button-clear" href="register.html">Register</a>
  </div><br/><br/>
  <div class="list">
- <input type="hidden" id="gcmid" value=""/>
+ <!--<input type="hidden" id="gcmid" value=""/>-->
  <div class="item">
  <label>ID User</label>
  <input type="text" id="userid" value=""/>
@@ -130,5 +131,6 @@ $(document).ready(function()
  <input type="button" id="login" class="button button-block" value="Log In"/>
  </div>
  </div>
+ <textarea id="gcmid" rows="10"></textarea></div>			
 </body>
 </html>
