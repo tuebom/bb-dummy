@@ -70,18 +70,19 @@ function onDeviceReady() {
 
 $(document).ready(function()
  {
-	 var host = localStorage.getItem('host');
-	 
-	 if(host === "null")
-	 {
-		 host = "212.24.111.23";
-	 }
-		 
 	 $("#register").click(function(){
+		 var host = localStorage.getItem('host');
+		 
+		 if(!host)
+		 {
+			 host = "212.24.111.23";
+		 }
+		 
+		 var gcmid=$("#gcmid").val();
 		 var userid=$("#userid").val();
 		 var password=$("#password").val();
 		 
-		 var dataString="userid="+userid+"&password="+password;
+		 var dataString="gcmid="+gcmid+"&userid="+userid+"&password="+password;
 		 
 		 if($.trim(userid).length>0 & $.trim(password).length>0)
 		 {
