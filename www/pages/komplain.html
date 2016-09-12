@@ -18,7 +18,7 @@
 	{
 		 var host = localStorage.getItem('host');
 		 
-		 if(host === "undefined")
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
@@ -26,7 +26,7 @@
 		 $("#kirim").click(function(){
 			 var info=$("#info").val();
 			 
-			 var dataString="info="+info;
+			 var dataString="mbrid="+mbrid+"&info="+info;
 			 
 			 if($.trim(info).length>0)
 			 {

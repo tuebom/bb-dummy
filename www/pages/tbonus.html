@@ -18,7 +18,7 @@
 	{
 		 var host = localStorage.getItem('host');
 		 
-		 if(host === "undefined")
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
@@ -28,7 +28,7 @@
 			 var nom=parseInt(nominal);
 			 var pin=$("#pin").val();
 			 
-			 var dataString="nominal="+nominal+"&pin="+pin;
+			 var dataString="mbrid="+mbrid+"&nominal="+nominal+"&pin="+pin;
 			 
 			 if($.trim(nominal).length>0 & $.trim(pin).length>0)
 			 {

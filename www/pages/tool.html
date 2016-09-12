@@ -23,7 +23,7 @@
 	{
 		 var host = localStorage.getItem('host');
 		 
-		 if(host === "undefined")
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
@@ -58,9 +58,6 @@
 
     </head><body background="../assets/img/biru.jpg">
     <div class="section">
-      <div class="row text-center">
-        <h3 style="color:#ffffff">MENU TOOL</h3>
-      </div>
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">

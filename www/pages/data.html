@@ -18,7 +18,7 @@
 	{
 		 var host = localStorage.getItem('host');
 		 
-		 if(host === "undefined")
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
@@ -28,7 +28,7 @@
 			 var paket=$("#paket").val();
 			 var pin=$("#pin").val();
 			 
-			 var dataString="nohp="+nohp+"&paket="+paket+"&pin="+pin;
+			 var dataString="mbrid="+mbrid+"&nohp="+nohp+"&paket="+paket+"&pin="+pin;
 			 
 			 if($.trim(nohp).length>0 & $.trim(paket).length>0 & $.trim(pin).length>0)
 			 {
@@ -75,7 +75,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="pin">Nomor PIN</label>
-                <input class="form-control input-lg" id="pin" type="password">
+                <input class="form-control input-lg" id="pin" type="number">
               </div>
 			  <div class="text-center">
 				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>

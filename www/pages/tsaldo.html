@@ -18,20 +18,20 @@
 	{
 		 var host = localStorage.getItem('host');
 		 
-		 if(host === "undefined")
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
 		 
 		 $("#kirim").click(function(){
-			 var mbrid=$("#mbrid").val();
+			 var idtujuan=$("#idtujuan").val();
 			 var nominal=$("#nominal").val();
 			 var nom=parseInt(nominal);
 			 var pin=$("#pin").val();
 			 
-			 var dataString="mbrid="+mbrid+"&nominal="+nominal+"&pin="+pin;
+			 var dataString="mbrid="+mbrid+"&idtujuan="+idtujuan+"&nominal="+nominal+"&pin="+pin;
 			 
-			 if($.trim(mbrid).length>0 & $.trim(nominal).length>0 & $.trim(pin).length>0)
+			 if($.trim(idtujuan).length>0 & $.trim(nominal).length>0 & $.trim(pin).length>0)
 			 {
 
 				 if (nom < 5000) {
@@ -70,7 +70,7 @@
             <form role="form">
               <div class="form-group">
                 <label class="control-label" for="mbrid" contenteditable="true">ID Member Tujuan</label>
-                <input class="form-control input-lg" id="mbrid" type="number">
+                <input class="form-control input-lg" id="idtujuan" type="number">
               </div>
               <div class="form-group">
                 <label class="control-label" for="nominal">Nominal Transfer</label>

@@ -3,6 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<style>
+	.control-label {
+    font-size: 16px;
+	}
+	</style>
 
     <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
@@ -18,18 +23,20 @@
 	{
 		 var host = localStorage.getItem('host');
 		 
-		 if(host === "undefined")
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
 		 
 		 $("#kirim").click(function(){
-			 var mbrid=$("#mbrid").val();
+			 var mbrid=localStorage.getItem('host');
+			 
+			 var idtujuan=$("#idtujuan").val();
 			 var nominal=$("#nominal").val();
 			 var nom=parseInt(nominal);
 			 var pin=$("#pin").val();
 			 
-			 var dataString="mbrid="+mbrid+"&nominal="+nominal+"&pin="+pin;
+			 var dataString="mbrid="+mbrid+"&idtujuan="+idtujuan+"&nominal="+nominal+"&pin="+pin;
 			 
 			 if($.trim(mbrid).length>0 & $.trim(nominal).length>0 & $.trim(pin).length>0)
 			 {

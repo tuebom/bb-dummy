@@ -74,7 +74,7 @@ $(document).ready(function()
 	 $("#login").click(function(){
 		 var host = localStorage.getItem('host');
 		 
-		 if(!host)
+		 if (!host)
 		 {
 			 host = "212.24.111.23";
 		 }
@@ -88,8 +88,8 @@ $(document).ready(function()
 		 if($.trim(userid).length>0 & $.trim(password).length>0)
 		 {
 			 //alert("GCM ID: " +gcmid);
-			 alert("Host: " +host);
-			 window.location.replace("index.html");
+			 //alert("Host: " +host);
+			 location.replace("index.html");
 			 
 			 /*$.ajax({
 			 type: "POST",

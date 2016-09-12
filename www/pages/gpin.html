@@ -16,18 +16,25 @@
 
 	$(document).ready(function()
 	{
+		 var host = localStorage.getItem('host');
+		 
+		 if (!host)
+		 {
+			 host = "212.24.111.23";
+		 }
+		 
 		 $("#kirim").click(function(){
 			 var pinlama=$("#pinlama").val();
 			 var pinbaru=$("#pinbaru").val();
 			 
-			 var dataString="pinlama="+pinlama+"&pinbaru="+pinbaru;
+			 var dataString="mbrid="+mbrid+"&pinlama="+pinlama+"&pinbaru="+pinbaru;
 			 
 			 if($.trim(pinlama).length>0 & $.trim(pinbaru).length>0)
 			 {
 
 				 $.ajax({
 				 type: "POST",
-				 url:"http://localhost/berbagi/gpin",
+				 url:"http://" + host + "/berbagi/gpin",
 				 data: dataString,
 				 crossDomain: true,
 				 cache: false,

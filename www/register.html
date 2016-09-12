@@ -79,12 +79,14 @@ $(document).ready(function()
 		 }
 		 
 		 var gcmid=$("#gcmid").val();
-		 var userid=$("#userid").val();
+		 var idupline=$("#idupline").val();
+		 var nama=$("#nama").val();
+		 var kota=$("#kota").val();
 		 var password=$("#password").val();
 		 
-		 var dataString="gcmid="+gcmid+"&userid="+userid+"&password="+password;
+		 var dataString="gcmid="+gcmid+"&idupline="+idupline+"&nama="+nama+"&kota="+kota+"&password="+password;
 		 
-		 if($.trim(userid).length>0 & $.trim(password).length>0)
+		 if($.trim(idupline).length>0 & $.trim(nama).length>0 & $.trim(kota).length>0 & $.trim(password).length>0)
 		 {
 			 $.ajax({
 			 type: "POST",
@@ -113,25 +115,29 @@ $(document).ready(function()
 <body>
  <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
  <h1 class="title">Register</h1>
- <a class="button button-clear" href="login.html">Log In</a>
+ <a class="button button-clear" href="login.html">Log&nbsp;In</a>
  </div><br/><br/>
  <div class="list">
- <input type="hidden" id="gcmid" value=""/>
- <div class="item">
- <label>Nama Lengkap</label>
- <input type="text" style="display:block" id="userid" value=""/>
- </div>
- <div class="item">
- <label>Password</label>
- <input type="password" id="password" value=""/>
- </div>
- <div class="item">
- <label>Confirm Password</label>
- <input type="password" id="password2" value=""/>
- </div>
- <div class="item">
- <input type="button" id="register" class="button button-block" value="Register"/>
- </div>
+	<input type="hidden" id="gcmid" value=""/>
+	<label class="item item-input">
+	  <span class="input-label">ID Upline</span>
+	  <input type="text" id="idupline" value="" style="font-size: 16px" />
+	</label>
+	<label class="item item-input">
+	  <span class="input-label">Nama Lengkap</span>
+	  <input type="text" id="nama" value="" style="font-size: 16px" />
+	</label>
+	<label class="item item-input">
+	  <span class="input-label">Kota</span>
+	  <input type="text" id="kota" value="" style="font-size: 16px" />
+	</label>
+	<label class="item item-input">
+	  <span class="input-label">Password</span>
+	  <input type="password" id="password" value="" style="font-size: 16px" />
+	</label>
+	<div class="item">
+	<input type="button" id="register" class="button button-block" value="Register"/>
+	</div>
  </div>
 </body>
 </html>

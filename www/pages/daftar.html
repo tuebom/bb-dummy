@@ -15,17 +15,19 @@
 	<script type="text/javascript">
 	$(document).ready(function()
 	{
-	 $("#register").click(function(){
+		$("#register").click(function(){
+		
 		 var nama=$("#nama").val();
 		 var kota=$("#kota").val();
 		 var nohp=$("#nohp").val();
-		 var dataString="nama="+nama+"&kota="+kota+"&nohp="+nohp;
+		 
+		 var dataString="mbrid="+mbrid+"&nama="+nama+"&kota="+kota+"&nohp="+nohp;
 		 
 		 if($.trim(nama).length>0 & $.trim(kota).length>0 & $.trim(nohp).length>0)
 		 {
 			 $.ajax({
 			 type: "POST",
-			 url:"http://localhost/berbagi/daftar2",
+			 url:"http://" + host + "/berbagi/daftar2",
 			 data: dataString,
 			 crossDomain: true,
 			 cache: false,

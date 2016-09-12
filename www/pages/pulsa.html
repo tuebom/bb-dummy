@@ -3,6 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<style>
+	.control-label {
+    font-size: 16px;
+	}
+	</style>
 
     <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
@@ -16,19 +21,26 @@
 
 	$(document).ready(function()
 	{
+		 var host = localStorage.getItem('host');
+		 
+		 if (!host)
+		 {
+			 host = "212.24.111.23";
+		 }
+		 
 		 $("#kirim").click(function(){
 			 var nohp=$("#nohp").val();
 			 var nominal=$("#nominal").val();
 			 var pin=$("#pin").val();
 			 
-			 var dataString="nohp="+nohp+"&nominal="+nominal+"&pin="+pin;
+			 var dataString="mbrid="+mbrid+"&nohp="+nohp+"&nominal="+nominal+"&pin="+pin;
 			 
 			 if($.trim(nohp).length>0 & $.trim(nominal).length>0 & $.trim(pin).length>0)
 			 {
 
 				 $.ajax({
 				 type: "POST",
-				 url:"http://localhost/berbagi/pulsa",
+				 url:"http://" + host + "/berbagi/pulsa",
 				 data: dataString,
 				 crossDomain: true,
 				 cache: false,
