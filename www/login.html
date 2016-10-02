@@ -80,34 +80,39 @@ $(document).ready(function()
 		 }
 		 
 		 var gcmid=$("#gcmid").val();
-		 var userid=$("#userid").val();
-		 var password=$("#password").val();
+		 var mbrid=$("#mbrid").val();
+		 var nohp=$("#nohp").val();
+		 var pin=$("#pin").val();
 		 
-		 var dataString="gcmid="+gcmid+"&userid="+userid+"&password="+password;
+		 var dataString="gcmid="+gcmid+"&mbrid="+mbrid+"&nohp="+nohp+"&pin="+pin;
 		 
-		 if($.trim(userid).length>0 & $.trim(password).length>0)
+		 if($.trim(mbrid).length>0 & $.trim(nohp).length>0 & $.trim(password).length>0)
 		 {
 			 //alert("GCM ID: " +gcmid);
 			 //alert("Host: " +host);
-			 location.replace("index.html");
+			 //location.replace("index.html");
 			 
-			 /*$.ajax({
+			 $.ajax({
 			 type: "POST",
-			 url:"http://" + host + "/berbagi/login",
+			 url:"http://" + host + ":3000/api/login",
 			 data: dataString,
 			 crossDomain: true,
 			 cache: false,
 			 beforeSend: function(){ $("#login").val('Memproses..');},
 			 success: function(data){
-			 if(data=="success")
-			 {
-				 //alert("Login berhasil!");
-				 $("#login").val('Log In');
-				 localStorage.setItem('mbrid') = userid;
-				 window.location.href = "index.html";
-			 }
-			 }
-			 });*/
+				 if(data.status == "success")
+					 {
+						 //alert("Login berhasil!");
+						 $("#login").val('Login');
+						 localStorage.setItem('mbrid') = userid;
+						 location.replace = "index.html";
+					 }
+					 else if(data.status == "error")
+					 {
+						 alert(data.message);
+					 }
+				 }
+			 });
 		 }return false;
 	 });
  });
@@ -115,21 +120,25 @@ $(document).ready(function()
 </head>
 <body>
  <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
- <h1 class="title">Log In</h1>
- <a class="button button-clear" href="register.html">Register</a>
- </div><br/><br/>
+ <h1 class="title">Login User</h1>
+ <!--<a class="button button-clear" href="register.html">Register</a>-->
+ </div><br><br><br>
  <div class="list">
- <input type="hidden" id="gcmid" value=""/>
+	<input type="hidden" id="gcmid" value="" />
 	<label class="item item-input">
-	  <span class="input-label">User ID</span>
-	  <input type="text" id="userid" value="" style="font-size: 16px" />
+	  <span class="input-label">ID Member</span>
+	  <input type="text" id="mbrid" value="" style="font-size: 16px" />
 	</label>
 	<label class="item item-input">
-	  <span class="input-label">Password</span>
-	  <input type="password" id="password" value="" style="font-size: 16px" />
+	  <span class="input-label">Nomor HP</span>
+	  <input type="text" id="nohp" value="" style="font-size: 16px" />
+	</label>
+	<label class="item item-input">
+	  <span class="input-label">Nomor PIN</span>
+	  <input type="password" id="pin" value="" style="font-size: 16px" />
 	</label>
  <div class="item">
- <input type="button" id="login" class="button button-block" value="Log In"/>
+ <input type="button" id="login" class="button button-block" value="Login"/>
  </div>
  </div>
 </body>

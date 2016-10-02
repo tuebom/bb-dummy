@@ -5,7 +5,12 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<style>
 	.control-label {
-    font-size: 16px;
+    font-size: 20px;
+    font-color: #ffffff;
+	}
+	.btn {
+    font-size: 18px;
+	width: 100px;
 	}
 	</style>
 
@@ -48,7 +53,7 @@
 				 
 				 $.ajax({
 				 type: "POST",
-				 url:"http://" + host + "/berbagi/belanja",
+				 url:"http://" + host + ":3000/api/belanja",
 				 data: dataString,
 				 crossDomain: true,
 				 cache: false,
@@ -58,6 +63,7 @@
 				 {
 					 //alert("Transaksi sukses!");
 					 $("#kirim").val('Kirim');
+					 javascript:history.back();
 				 }
 				 /*else if(data=="error")
 				 {

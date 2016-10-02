@@ -5,7 +5,12 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<style>
 	.control-label {
-    font-size: 16px;
+    font-size: 20px;
+    font-color: #ffffff;
+	}
+	.btn {
+    font-size: 18px;
+	width: 100px;
 	}
 	</style>
 
@@ -41,7 +46,7 @@
 
 				 $.ajax({
 				 type: "POST",
-				 url:"http://" + host + "/berbagi/pln",
+				 url:"http://" + host + ":3000/api/pln",
 				 data: dataString,
 				 crossDomain: true,
 				 cache: false,
@@ -51,6 +56,7 @@
 				 {
 					 //alert("Transaksi sukses!");
 					 $("#kirim").val('Kirim');
+					 javascript:history.back();
 				 }
 				 /*else if(data=="error")
 				 {
@@ -77,6 +83,11 @@
                 <label class="control-label" for="nominal">Nominal</label>
                 <select class="form-control input-lg" id="nominal">
                   <option></option>
+                  <option value="PLN20">20</option>
+                  <option value="PLN50">50</option>
+                  <option value="PLN100">100</option>
+                  <option value="PLN200">200</option>
+                  <option value="PLN500">500</option>
                 </select>
               </div>
               <div class="form-group">

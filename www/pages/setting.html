@@ -3,6 +3,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<style>
+	.control-label {
+    font-size: 20px;
+    font-color: #ffffff;
+	}
+	.btn {
+    font-size: 18px;
+	width: 100px;
+	}
+	</style>
 
     <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
@@ -27,6 +37,7 @@
 			 var host=$("#host").val();
 			 if($.trim(host).length>0){
 				 localStorage.setItem('host') = host;
+				 javascript:history.back();
 			 }
 		 });
 	});

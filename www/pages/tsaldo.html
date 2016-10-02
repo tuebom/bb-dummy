@@ -3,6 +3,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<style>
+	.control-label {
+    font-size: 20px;
+    font-color: #ffffff;
+	}
+	.btn {
+    font-size: 18px;
+	width: 100px;
+	}
+	</style>
 
     <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
@@ -41,7 +51,7 @@
 				 
 				 $.ajax({
 				 type: "POST",
-				 url:"http://" + host + "/berbagi/tsaldo",
+				 url:"http://" + host + ":3000/api/tsaldo",
 				 data: dataString,
 				 crossDomain: true,
 				 cache: false,
@@ -51,6 +61,7 @@
 				 {
 					 //alert("Transaksi sukses!");
 					 $("#kirim").val('Kirim');
+					 javascript:history.back();
 				 }
 				 /*else if(data=="error")
 				 {
@@ -69,7 +80,7 @@
           <div class="col-md-12">
             <form role="form">
               <div class="form-group">
-                <label class="control-label" for="mbrid" contenteditable="true">ID Member Tujuan</label>
+                <label class="control-label" for="idtujuan" contenteditable="true">ID Member Tujuan</label>
                 <input class="form-control input-lg" id="idtujuan" type="number">
               </div>
               <div class="form-group">

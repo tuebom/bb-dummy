@@ -3,6 +3,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<style>
+	.control-label {
+    font-size: 20px;
+    font-color: #ffffff;
+	}
+	.btn {
+    font-size: 18px;
+	width: 100px;
+	}
+	</style>
 
     <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
@@ -40,7 +50,7 @@
 
 				 $.ajax({
 				 type: "POST",
-				 url:"http://" + host + "/berbagi/tbonus",
+				 url:"http://" + host + ":3000/api/tbonus",
 				 data: dataString,
 				 crossDomain: true,
 				 cache: false,
@@ -50,6 +60,7 @@
 				 {
 					 //alert("Transaksi sukses!");
 					 $("#kirim").val('Kirim');
+					 javascript:history.back();
 				 }
 				 /*else if(data=="error")
 				 {
