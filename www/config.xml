@@ -33,20 +33,23 @@
     </plugin>
     <plugin name="cordova-plugin-console" source="npm" spec="~1.0.3" />
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.1" />
-    <plugin name="cordova-splashscreen" source="npm" spec="~3.1.0-3" />
+	<plugin name="cordova-plugin-admobpro" source="npm" />
+    <plugin name="cordova-plugin-splashscreen" source="npm" />
+	<plugin name="cordova-plugin-x-socialsharing" source="npm" />
+	<plugin name="cordova-plugin-inappbrowser" source="npm"/>
+	<plugin spec="https://github.com/floatinghotpot/cordova-admob-pro" source="git" />
     <!--<plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />-->
 
-	<preference name="SplashScreen" value="res/screen/android/drawable-land-hdpi-screen.png" />
+	<preference name="SplashScreen" value="screen" />
 	<preference name="SplashScreenDelay" value="3000" />
     
 	<icon src="icon.png" />
+	<splash src="splash.png" />
     <platform name="android">
         <icon density="ldpi" src="res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="res/icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="res/icon/android/drawable-hdpi-icon.png" />
         <icon density="xhdpi" src="res/icon/android/drawable-xhdpi-icon.png" />
-        <icon density="xxhdpi" src="res/icon/android/drawable-xxhdpi-icon.png" />
-        <icon density="xxxhdpi" src="res/icon/android/drawable-xxxhdpi-icon.png" />
         <splash density="land-ldpi" src="res/screen/android/drawable-land-ldpi-screen.png" />
         <splash density="land-mdpi" src="res/screen/android/drawable-land-mdpi-screen.png" />
         <splash density="land-hdpi" src="res/screen/android/drawable-land-hdpi-screen.png" />
