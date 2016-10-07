@@ -1,4 +1,4 @@
-<html><head>
+<html ng-app="mainApp"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -6,6 +6,14 @@
 	<style>
 	.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
     border: none;
+	}
+	.control-label {
+    font-size: 20px;
+    font-color: #ffffff;
+	}
+	.btn {
+    font-size: 18px;
+	width: 100px;
 	}
 	</style>
 	
@@ -21,104 +29,694 @@
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
   
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/admob.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
 
- <script type="text/javascript">
+	<script type="text/javascript">
 
-document.addEventListener("deviceready", onDeviceReady, false);
+	document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady() {
-	
-	console.log("Device Ready");
-
-	var push = PushNotification.init({
-		"android": {
-			"senderID": "597497239727"
-		},
-		"ios": {
-			"sound": true,
-			"vibration": true,
-			"badge": true
-		},
-		"windows": {}
-	});
-	console.log('after init');
-
-	push.on('registration', function(data) {
-		console.log('registration event: ' + data.registrationId);
-		document.getElementById("gcmid").value = data.registrationId;
+	function onDeviceReady() {
 		
-		var oldRegId = localStorage.getItem('registrationId');
-		if (oldRegId !== data.registrationId) {
-			// Save new registration ID
-			localStorage.setItem('registrationId', data.registrationId);
-			// Post registrationId to your app server as the value has changed
-		}
-	});
+		console.log("Device Ready");
 
-	push.on('error', function(e) {
-		console.log("push error = " + e.message);
-	});
+		var push = PushNotification.init({
+			"android": {
+				"senderID": "597497239727"
+			},
+			"ios": {
+				"sound": true,
+				"vibration": true,
+				"badge": true
+			},
+			"windows": {}
+		});
+		console.log('after init');
 
-	push.on('notification', function(data) {
-		console.log('notification event');
-		navigator.notification.alert(
-			data.message,         // message
-			null,                 // callback
-			data.title,           // title
-			'Ok'                  // buttonName
-		);
-   });
-}
- </script>
+		push.on('registration', function(data) {
+			console.log('registration event: ' + data.registrationId);
+			document.getElementById("gcmid").value = data.registrationId;
+			
+			var oldRegId = localStorage.getItem('registrationId');
+			if (oldRegId !== data.registrationId) {
+				// Save new registration ID
+				localStorage.setItem('registrationId', data.registrationId);
+				// Post registrationId to your app server as the value has changed
+			}
+		});
+
+		push.on('error', function(e) {
+			console.log("push error = " + e.message);
+		});
+
+		push.on('notification', function(data) {
+			console.log('notification event');
+			navigator.notification.alert(
+				data.message,         // message
+				null,                 // callback
+				data.title,           // title
+				'Ok'                  // buttonName
+			);
+	   });
+	}
+	</script>
 
 	</head>
 	<body background="assets/img/biru.jpg">
     <div class="section">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
+	    <input type="hidden" id="gcmid" value="" />
+        <div class="row" ng-view></div>
+      </div>
+    </div>
+
+         
+    <script type="text/ng-template" id="mainmenu.htm">
+		<div class="col-md-12 text-center">
             <table class="table table-borderless" border="0">
               <tbody>
                 <tr>
                   <td width="50%">
-                    <a href="pages/daftar.html#"><img src="assets/img/daftar.jpg" class="center-block img-responsive"></a>
+                    <a href="#daftar"><img src="assets/img/daftar.jpg" class="center-block img-responsive"></a>
                   </td>
                   <td>
-                    <a href="pages/belanja.html#"><img src="assets/img/belanja.jpg" class="center-block img-responsive"></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="pages/pulsa.html#"><img src="assets/img/pulsa.jpg" class="center-block img-responsive"></a>
-                  </td>
-                  <td>
-                    <a href="pages/pln.html#"><img src="assets/img/pln.jpg" class="center-block img-responsive"></a>
+                    <a href="#belanja"><img src="assets/img/belanja.jpg" class="center-block img-responsive"></a>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <a href="pages/data.html#"><img src="assets/img/data.jpg" class="center-block img-responsive"></a>
+                    <a href="#pulsa"><img src="assets/img/pulsa.jpg" class="center-block img-responsive"></a>
                   </td>
                   <td>
-                    <a href="pages/game.html#"><img src="assets/img/game.jpg" class="center-block img-responsive"></a>
+                    <a href="#pln"><img src="assets/img/pln.jpg" class="center-block img-responsive"></a>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <a href="pages/tool.html"><img src="assets/img/tool.jpg" class="center-block img-responsive"></a>
+                    <a href="#data"><img src="assets/img/data.jpg" class="center-block img-responsive"></a>
                   </td>
                   <td>
-                    <a href="pages/komplain.html#"><img src="assets/img/komplain.jpg" class="center-block img-responsive"></a>
+                    <a href="#game"><img src="assets/img/game.jpg" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="#tool"><img src="assets/img/tool.jpg" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="#komplain"><img src="assets/img/komplain.jpg" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="login.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="mbrid" contenteditable="true">ID Member</label>
+                <input class="form-control input-lg" id="mbrid" type="number" ng-model="mbrid">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nohp">Nomor HP</label>
+                <input class="form-control input-lg" id="nohp" type="number" ng-model="nohp">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pin">Nomor PIN</label>
+                <input class="form-control input-lg" id="pin" type="password" ng-model="pin">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="login" class="btn btn-default" ng-click="login_user()">Login</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="daftar.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="nama" contenteditable="true">Nama Member</label>
+                <input class="form-control input-lg" id="nama" type="text" style="text-transform: uppercase" ng-model="nama">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="kota">Kota</label>
+                <select class="form-control input-lg" id="kota" style="text-transform: uppercase" ng-model="kota">
+                  <option></option>
+                  <option>BADUNG</option>
+                  <option>DENPASAR</option>
+                  <option>GIANYAR</option>
+                  <option>KARANGASEM</option>
+                  <option>KLUNGKUNG</option>
+                  <option>NEGARA</option>
+                  <option>SINGARAJA</option>
+                  <option>TABANAN</option>
+                  <option>LOMBOK</option>
+                  <option>SURABAYA</option>
+                  <option>JAKARTA</option>
+                  <option>MEDAN</option>
+                  <option>KALIMANTAN</option>
+                  <option>SULAWESI</option>
+                  <option>PAPUA</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nohp">Nomor HP</label>
+                <input class="form-control input-lg" id="nohp" type="number" autocomplete="off" ng-model="nohp">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="belanja.htm">
+          <div class="col-md-12" ng-controller="belanjaController">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="mbrid" contenteditable="true" ng-model="mbrid">ID Member</label>
+                <input class="form-control input-lg" id="mbrid" type="number">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nominal">Nominal</label>
+                <input class="form-control input-lg" id="nominal" type="number" ng-model="nominal">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pin">Nomor PIN</label>
+                <input class="form-control input-lg" id="pin" type="password" ng-model="pin">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="pulsa.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="nohp" contenteditable="true" autocomplete="off">Nomor HP Tujuan</label>
+                <input class="form-control input-lg" id="nohp" type="number">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nominal">Nominal Pulsa</label>
+                <select class="form-control input-lg" id="nominal">
+                  <option></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pin">Nomor PIN</label>
+                <input class="form-control input-lg" id="pin" type="number">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="pln.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="nopel" contenteditable="true">Nomor Pelanggan</label>
+                <input class="form-control input-lg" id="nopel" type="number" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nominal">Nominal</label>
+                <select class="form-control input-lg" id="nominal">
+                  <option></option>
+                  <option value="PLN20">20</option>
+                  <option value="PLN50">50</option>
+                  <option value="PLN100">100</option>
+                  <option value="PLN200">200</option>
+                  <option value="PLN500">500</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nohp" contenteditable="true" autocomplete="off">Nomor HP Kirim Token</label>
+                <input class="form-control input-lg" id="nohp" type="number">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pin">Nomor PIN</label>
+                <input class="form-control input-lg" id="pin" type="number">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="data.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="nohp" contenteditable="true" autocomplete="off">Nomor HP Tujuan</label>
+                <input class="form-control input-lg" id="nohp" type="number">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="paket">Paket Data</label>
+                <select class="form-control input-lg" id="paket">
+                  <option></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pin">Nomor PIN</label>
+                <input class="form-control input-lg" id="pin" type="number">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="game.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="paket">Paket Game</label>
+                <select class="form-control input-lg" id="paket">
+                  <option value=""></option>
+                  <option value="fifa">FIFA, DRAGONICA</option>
+                  <option value="garena">GARENA</option>
+                  <option value="gemscool">GEMSCOOL, CABAL</option>
+                  <option value="lyto">LYTO</option>
+                  <option value="megaxus">MEGAXUS</option>
+                  <option value="steam">STEAM INDO (DOTA)</option>
+                  <option value="wavegame">WAVEGAME</option>
+                  <option value="zynga">ZYNGA</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nominal">Nominal Paket</label>
+                <select class="form-control input-lg" id="nominal">
+                  <option></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nohp" contenteditable="true" autocomplete="off">Nomor HP Tujuan</label>
+                <input class="form-control input-lg" id="nohp" type="number">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pin">Nomor PIN</label>
+                <input class="form-control input-lg" id="pin" type="number">
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="tool.htm">
+          <div class="col-md-12 text-center">
+            <table class="table table-borderless" border="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <a id="cekid" href="javascript:void(0)"><img src="assets/img/id100.png" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a id="ceksaldo" href="javascript:void(0)"><img src="assets/img/cs100.png" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="..\pages\tsaldo.html"><img src="assets/img/ts100.png" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="..\pages\cekharga.html"><img src="assets/img/ch.png" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a id="cekbonus" href="javascript:void(0)"><img src="assets/img/cb.png" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="..\pages\tbonus.html"><img src="assets/img/tb100.png" class="center-block img-responsive"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="..\pages\gpin.html"><img src="assets/img/gpin100.png" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
+                    <a href="..\pages\setting.html"><img src="assets/img/setting100.png" class="center-block img-responsive"></a>
+                  </td>
+                  <td>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
+    </script>
+
+    <script type="text/ng-template" id="komplain.htm">
+          <div class="col-md-12">
+            <form role="form">
+              <div class="form-group">
+                <label class="control-label" for="info" contenteditable="true">Pesan Info/Komplain</label>
+                <textarea class="form-control input-lg" rows="5" id="info"></textarea>
+              </div>
+			  <div class="text-center">
+				  <button type="button" id="kirim" class="btn btn-default">Kirim</button>
+				  <button type="button" class="btn btn-default" onclick="javascript:history.back()">Batal</button>
+			  </div>
+            </form>
+          </div>
+    </script>
+      
+      <script>
+         var mainApp = angular.module("mainApp", ['ngRoute']);
+         mainApp.config(['$routeProvider', function($routeProvider) {
+            $routeProvider.
+            
+            when('/', {
+               templateUrl: 'mainmenu.htm',
+               controller: 'mainmenuController'
+            }).
+                        
+            when('/login', {
+               templateUrl: 'login.htm',
+               controller: 'loginController'
+            }).
+            
+            when('/daftar', {
+               templateUrl: 'daftar.htm',
+               controller: 'daftarController'
+            }).
+            
+            when('/belanja', {
+               templateUrl: 'belanja.htm',
+               controller: 'belanjaController'
+            }).
+            
+            when('/pulsa', {
+               templateUrl: 'pulsa.htm',
+               controller: 'pulsaController'
+            }).
+            
+            when('/pln', {
+               templateUrl: 'pln.htm',
+               controller: 'plnController'
+            }).
+            
+            when('/data', {
+               templateUrl: 'data.htm',
+               controller: 'dataController'
+            }).
+            
+            when('/game', {
+               templateUrl: 'game.htm',
+               controller: 'gameController'
+            }).
+            
+            when('/daftar', {
+               templateUrl: 'daftar.htm',
+               controller: 'daftarController'
+            }).
+            
+            when('/tool', {
+               templateUrl: 'tool.htm',
+               controller: 'toolController'
+            }).
+            
+            when('/komplain', {
+               templateUrl: 'komplain.htm',
+               controller: 'komplainController'
+            }).
+            
+            otherwise({
+               redirectTo: '/'
+            });
+        }]);
+
+         
+         mainApp.controller('mainmenuController', function($scope, $http) {
+            //$scope.xx = [];
+         });
+         
+         mainApp.controller('loginController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.login_user = function() {
+				$http.post('/mobile/login', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'nohp'      : $scope.nohp,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Login success!");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+         
+         mainApp.controller('daftarController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.daftar_mbr = function() {
+				$http.post('/mobile/login', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'nohp'      : $scope.nohp,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Login success!");
+				  $location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+         
+         mainApp.controller('belanjaController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.belanja_submit = function() {
+				$http.post('/belanja', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+         
+         mainApp.controller('pulsaController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.pulsa_submit = function() {
+				$http.post('/pulsa', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+          });
+         
+         mainApp.controller('plnController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.pln_submit = function() {
+				$http.post('/pulsa', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'nopel'     : $scope.nopel,
+						'nohp'      : $scope.nohp,
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+         
+         mainApp.controller('dataController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.data_submit = function() {
+				$http.post('/data', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'paket'     : $scope.paket,
+						'nohp'      : $scope.nohp,
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+         
+         mainApp.controller('gameController', function($scope, $http) {
+            //$scope.xx = [];
+
+			$scope.game_submit = function() {
+				$http.post('/data', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'paket'     : $scope.paket,
+						'nohp'      : $scope.nohp,
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+         
+         mainApp.controller('toolController', function($scope, $http) {
+            //$scope.xx = [];
+ 
+			// cek id
+			$scope.cek_id = function() {
+				$http.post('/cekid', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'paket'     : $scope.paket,
+						'nohp'      : $scope.nohp,
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+ 
+			// cek saldo
+			$scope.cek_saldo = function() {
+				$http.post('/cekid', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'paket'     : $scope.paket,
+						'nohp'      : $scope.nohp,
+						'nominal'   : $scope.nominal,
+						'pin'       : $scope.pin
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+        });
+         
+         mainApp.controller('komplainController', function($scope, $http) {
+            //$scope.xx = [];
+ 
+			$scope.komplain = function() {
+				$http.post('/komplain', 
+					{
+						'mbrid'     : $scope.mbrid, 
+						'gcmid'     : document.getElementById("gcmid"), 
+						'info'      : $scope.info
+					}
+				)
+				.success(function (data, status, headers, config) {
+				  //alert("Trx has been Submitted Successfully");
+				  location.path('/');
+
+				})
+
+				.error(function(data, status, headers, config){
+				   
+				});
+			}
+         });
+			
+      </script>
 
 </body></html>
